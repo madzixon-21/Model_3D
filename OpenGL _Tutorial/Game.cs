@@ -43,8 +43,8 @@ namespace OpenGL__Tutorial
         Vector3 front = new Vector3(0.0f, 0.0f, -1.0f);
         Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
 
-        private Matrix4 _view;
-        private Matrix4 _projection;
+        private bool firstMove = true;
+        private Vector2 lastPos;
 
         public Game(int width, int height, string title) : base(GameWindowSettings.Default, new NativeWindowSettings() { ClientSize = (width, height), Title = title }) { }
 
@@ -89,6 +89,24 @@ namespace OpenGL__Tutorial
             {
                 camera.Position -= camera.Up * cameraSpeed * (float)e.Time; // Down
             }
+
+            var mouse = MouseState;
+            const float sensitivity = 0.2f;
+
+            if (firstMove) 
+            {
+                lastPos = new Vector2(mouse.X, mouse.Y);
+                firstMove = false;
+            }
+            else
+            {
+                var deltaX = mouse.X - lastPos.X;
+                var deltaY = mouse.Y - lastPos.Y;
+                lastPos = new Vector2(mouse.X, mouse.Y);
+
+                camera.Yaw += deltaX * sensitivity;
+                camera.Pitch -= deltaY * sensitivity; 
+            }
         }
 
         protected override void OnUnload()
@@ -129,12 +147,8 @@ namespace OpenGL__Tutorial
 
 
             camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
-            //_view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
-            _projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Size.X / (float)Size.Y, 0.1f, 100.0f);
-
-
-            // We make the mouse cursor invisible and captured so we can have proper FPS-camera movement.
-            //CursorState = CursorState.Grabbed;
+;
+            CursorState = CursorState.Grabbed;
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -146,30 +160,18 @@ namespace OpenGL__Tutorial
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.DepthTest);
 
-            //Code goes here.
-
             GL.BindVertexArray(VertexArrayObject);
 
             shader.Use();
 
             Matrix4 model = Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
 
-            // Then, we pass all of these matrices to the vertex shader.
-            // You could also multiply them here and then pass, which is faster, but having the separate matrices available is used for some advanced effects.
-
-            // IMPORTANT: OpenTK's matrix types are transposed from what OpenGL would expect - rows and columns are reversed.
-            // They are then transposed properly when passed to the shader. 
-            // This means that we retain the same multiplication order in both OpenTK c# code and GLSL shader code.
-            // If you pass the individual matrices to the shader and multiply there, you have to do in the order "model * view * projection".
-            // You can think like this: first apply the modelToWorld (aka model) matrix, then apply the worldToView (aka view) matrix, 
-            // and finally apply the viewToProjectedSpace (aka projection) matrix.
             shader.SetMatrix4("model", model);
             shader.SetMatrix4("view", camera.GetViewMatrix());
             shader.SetMatrix4("projection", camera.GetProjectionMatrix());
 
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
             SwapBuffers();
-
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -177,7 +179,7 @@ namespace OpenGL__Tutorial
             base.OnResize(e);
 
             GL.Viewport(0, 0, e.Width, e.Height);
-            //_camera.AspectRatio = Size.X / (float)Size.Y;
+            camera.AspectRatio = Size.X / (float)Size.Y;
         }
     }
 }
