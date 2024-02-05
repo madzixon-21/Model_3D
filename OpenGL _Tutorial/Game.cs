@@ -37,18 +37,13 @@ namespace OpenGL__Tutorial
         int VertexArrayObject;
         private double _time;
         Shader shader;
-        //private Camera _camera;
+        private Camera camera;
 
         Vector3 position = new Vector3(0.0f, 0.0f, 3.0f);
         Vector3 front = new Vector3(0.0f, 0.0f, -1.0f);
         Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
 
-        // Then, we create two matrices to hold our view and projection. They're initialized at the bottom of OnLoad.
-        // The view matrix is what you might consider the "camera". It represents the current viewport in the window.
         private Matrix4 _view;
-
-        // This represents how the vertices will be projected. It's hard to explain through comments,
-        // so check out the web version for a good demonstration of what this does.
         private Matrix4 _projection;
 
         public Game(int width, int height, string title) : base(GameWindowSettings.Default, new NativeWindowSettings() { ClientSize = (width, height), Title = title }) { }
@@ -67,34 +62,33 @@ namespace OpenGL__Tutorial
             {
                 Close();
             }
-            //const float cameraSpeed = 1.5f;
-            //const float sensitivity = 0.2f;
+            const float cameraSpeed = 1.5f;
 
-            //if (input.IsKeyDown(Keys.W))
-            //{
-            //    _camera.Position += _camera.Front * cameraSpeed * (float)e.Time; // Forward
-            //}
+            if (input.IsKeyDown(Keys.W))
+            {
+                camera.Position += camera.Front * cameraSpeed * (float)e.Time; // Forward
+            }
 
-            //if (input.IsKeyDown(Keys.S))
-            //{
-            //    _camera.Position -= _camera.Front * cameraSpeed * (float)e.Time; // Backwards
-            //}
-            //if (input.IsKeyDown(Keys.A))
-            //{
-            //    _camera.Position -= _camera.Right * cameraSpeed * (float)e.Time; // Left
-            //}
-            //if (input.IsKeyDown(Keys.D))
-            //{
-            //    _camera.Position += _camera.Right * cameraSpeed * (float)e.Time; // Right
-            //}
-            //if (input.IsKeyDown(Keys.Space))
-            //{
-            //    _camera.Position += _camera.Up * cameraSpeed * (float)e.Time; // Up
-            //}
-            //if (input.IsKeyDown(Keys.LeftShift))
-            //{
-            //    _camera.Position -= _camera.Up * cameraSpeed * (float)e.Time; // Down
-            //}
+            if (input.IsKeyDown(Keys.S))
+            {
+                camera.Position -= camera.Front * cameraSpeed * (float)e.Time; // Backwards
+            }
+            if (input.IsKeyDown(Keys.A))
+            {
+                camera.Position -= camera.Right * cameraSpeed * (float)e.Time; // Left
+            }
+            if (input.IsKeyDown(Keys.D))
+            {
+                camera.Position += camera.Right * cameraSpeed * (float)e.Time; // Right
+            }
+            if (input.IsKeyDown(Keys.Space))
+            {
+                camera.Position += camera.Up * cameraSpeed * (float)e.Time; // Up
+            }
+            if (input.IsKeyDown(Keys.LeftShift))
+            {
+                camera.Position -= camera.Up * cameraSpeed * (float)e.Time; // Down
+            }
         }
 
         protected override void OnUnload()
@@ -134,8 +128,8 @@ namespace OpenGL__Tutorial
             shader.Use();
 
 
-            //_camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
-            _view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
+            camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
+            //_view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
             _projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Size.X / (float)Size.Y, 0.1f, 100.0f);
 
 
@@ -170,8 +164,8 @@ namespace OpenGL__Tutorial
             // You can think like this: first apply the modelToWorld (aka model) matrix, then apply the worldToView (aka view) matrix, 
             // and finally apply the viewToProjectedSpace (aka projection) matrix.
             shader.SetMatrix4("model", model);
-            shader.SetMatrix4("view", _view);
-            shader.SetMatrix4("projection", _projection);
+            shader.SetMatrix4("view", camera.GetViewMatrix());
+            shader.SetMatrix4("projection", camera.GetProjectionMatrix());
 
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
             SwapBuffers();
