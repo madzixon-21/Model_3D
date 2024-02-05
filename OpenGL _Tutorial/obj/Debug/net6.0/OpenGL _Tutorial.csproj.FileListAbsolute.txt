@@ -1,0 +1,33 @@
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenGL _Tutorial.exe
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenGL _Tutorial.deps.json
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenGL _Tutorial.runtimeconfig.json
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenGL _Tutorial.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenGL _Tutorial.pdb
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Audio.OpenAL.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Compute.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Core.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Graphics.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Input.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Mathematics.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Windowing.Common.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Windowing.Desktop.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\OpenTK.Windowing.GraphicsLibraryFramework.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\runtimes\linux-x64\native\libglfw-wayland.so.3.3
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\runtimes\linux-x64\native\libglfw.so.3.3
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\runtimes\osx-arm64\native\libglfw.3.dylib
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\runtimes\osx-x64\native\libglfw.3.dylib
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\runtimes\win-x64\native\glfw3.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\runtimes\win-x86\native\glfw3.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.csproj.AssemblyReference.cache
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.AssemblyInfoInputs.cache
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.AssemblyInfo.cs
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.csproj.CoreCompileInputs.cache
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.csproj.CopyComplete
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\refint\OpenGL _Tutorial.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.pdb
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\OpenGL _Tutorial.genruntimeconfig.cache
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\obj\Debug\net6.0\ref\OpenGL _Tutorial.dll
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\shader.frag
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\shader.vert
