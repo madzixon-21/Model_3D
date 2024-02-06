@@ -208,6 +208,7 @@ namespace OpenGL__Tutorial
 
             shader.SetVector3("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
             shader.SetVector3("lightPos", lightPos);
+            shader.SetVector3("viewPos", camera.Position);
 
             generalModel.DrawModel(shader);
             #endregion

@@ -22,7 +22,7 @@ namespace OpenGL__Tutorial
 
         Vector3 lightColor;
         Vector3 lightPos;
-
+        Vector3 viewPos;
         public Shader(string vertexPath, string fragmentPath)
         {
             string VertexShaderSource = File.ReadAllText(vertexPath);
@@ -126,11 +126,18 @@ namespace OpenGL__Tutorial
                 int location = GL.GetUniformLocation(Handle, "lightPos");
                 GL.Uniform3(location, vector);
             }
+            else if (name == "viewPos")
+            {
+                viewPos = vector;
+                int location = GL.GetUniformLocation(Handle, "viewPos");
+                GL.Uniform3(location, vector);
+            }
             else
             {
                 Console.WriteLine($"Unknown uniform name: {name}");
             }
         }
+        
 
         public int GetAttribLocation(string attributeName)
         {
