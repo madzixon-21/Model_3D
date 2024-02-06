@@ -88,9 +88,14 @@ namespace OpenGL__Tutorial
 
         public void SetMatrix4(string name, Matrix4 matrix)
         {
+            int location = -1;
+
             if (name == "model")
             {
-                model = matrix;
+                location = GL.GetUniformLocation(Handle, "model");
+                if (location != -1)
+                    GL.UniformMatrix4(location, true, ref matrix);
+
             }
             else if (name == "view")
             {
