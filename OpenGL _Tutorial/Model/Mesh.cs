@@ -38,7 +38,7 @@ namespace OpenGL__Tutorial.Model
                 }
                 else
                 {
-                    vertex.color = new Vector3(0.0f, 0.0f, 0.0f);
+                    vertex.color = new Vector3(0.0f, 0.0f, 1.0f);
                 }
 
                 if (mesh.HasNormals)

@@ -9,33 +9,6 @@ namespace OpenGL__Tutorial
 {
     public class Game : GameWindow
     {
-        #region Pyramid data
-        float[] vertices = {
-            // Base
-            -0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.5f, 0.5f, 0.0f,
-
-            // Apex
-            0.0f,  0.5f,  0.0f,  0.5f, 0.0f, 0.5f
-        };
-
-        uint[] indices = {
-            // Base
-            0, 1, 2,
-            2, 3, 0,
-
-            // Sides
-            0, 4, 1,
-            1, 4, 2,
-            2, 4, 3,
-            3, 4, 0
-        };
-        #endregion 
-
-        int VertexBufferObject;
-        int ElementBufferObject;
         int VertexArrayObject;
         private double _time;
         Shader shader;
@@ -48,10 +21,12 @@ namespace OpenGL__Tutorial
         private Vector2 lastPos;
         private bool staticCameraMode = false;
         private bool keyPad1Pressed = false;
-        Matrix4 queenModel = Matrix4.CreateTranslation(-10.0f, 0.0f, -10.0f) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(90)) * Matrix4.CreateScale(0.1f);
+        Matrix4 queenModel = Matrix4.CreateTranslation(-10.0f, 3.0f, -10.0f) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(90)) * Matrix4.CreateScale(0.1f);
 
-        Vector3 queenPosition = new Vector3(-10.0f, 0.0f, -10.0f);
+        Vector3 queenPosition = new Vector3(-10.0f, 3.0f, -10.0f);
         float queenRotationY = 0.0f;
+
+        Vector3 lightPos = new Vector3(1.0f, 3.0f, 1.0f);
         public Game(int width, int height, string title) : base(GameWindowSettings.Default, new NativeWindowSettings() { ClientSize = (width, height), Title = title }) { }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -155,11 +130,11 @@ namespace OpenGL__Tutorial
 
             if (input.IsKeyDown(Keys.Up))
             {
-                queenPosition += new Vector3(0.0f, 0.0f, queenSpeed * (float)e.Time); // Move forward
+                queenPosition += new Vector3(0.0f, 0.0f, -queenSpeed * (float)e.Time); // Move forward
             }
             if (input.IsKeyDown(Keys.Down))
             {
-                queenPosition += new Vector3(0.0f, 0.0f, -queenSpeed * (float)e.Time); // Move backward
+                queenPosition += new Vector3(0.0f, 0.0f, +queenSpeed * (float)e.Time); // Move backward
             }
             if (input.IsKeyDown(Keys.Left))
             {
@@ -199,27 +174,6 @@ namespace OpenGL__Tutorial
 
             GL.Enable(EnableCap.DepthTest);
 
-            #region Hardcoded pyramid
-            //VertexBufferObject = GL.GenBuffer();
-            //GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-            //GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-
-
-            //VertexArrayObject = GL.GenVertexArray();
-            //GL.BindVertexArray(VertexArrayObject);
-
-            //GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
-            //GL.EnableVertexAttribArray(0);
-
-            //GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
-            //GL.EnableVertexAttribArray(1);
-
-
-            //ElementBufferObject = GL.GenBuffer();
-            //GL.BindBuffer(BufferTarget.ElementArrayBuffer, ElementBufferObject);
-            //GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
-            #endregion
-
             generalModel = new Model.GeneralModel("resources/SM_ChessBoard.obj");
             queenGeneralModel = new Model.GeneralModel("resources/SM_PieceBlackQueen.obj");
 
@@ -247,11 +201,13 @@ namespace OpenGL__Tutorial
             shader.Use();
 
             #region Chessboard
-            //Matrix4 model = Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
             Matrix4 model = Matrix4.CreateTranslation(new Vector3(0.0f, 0.0f, 0.0f)) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(180)) * Matrix4.CreateScale(0.1f);
             shader.SetMatrix4("model", model);
             shader.SetMatrix4("view", camera.GetViewMatrix());
             shader.SetMatrix4("projection", camera.GetProjectionMatrix());
+
+            shader.SetVector3("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
+            shader.SetVector3("lightPos", lightPos);
 
             generalModel.DrawModel(shader);
             #endregion
@@ -265,8 +221,7 @@ namespace OpenGL__Tutorial
             queenGeneralModel.DrawModel(shader);
             #endregion
 
-            //GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
-            Lamp lamp1 = new Lamp(lampShader, new Vector3(1.0f, 3.0f, 1.0f), camera);
+            Lamp lamp1 = new Lamp(lampShader, lightPos, camera);
             lamp1.Draw();
 
             SwapBuffers();

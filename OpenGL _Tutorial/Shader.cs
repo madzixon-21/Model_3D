@@ -18,6 +18,11 @@ namespace OpenGL__Tutorial
         Matrix4 model;
         Matrix4 view;
         Matrix4 projection;
+
+
+        Vector3 lightColor;
+        Vector3 lightPos;
+
         public Shader(string vertexPath, string fragmentPath)
         {
             string VertexShaderSource = File.ReadAllText(vertexPath);
@@ -104,6 +109,26 @@ namespace OpenGL__Tutorial
             else
             {
                 projection = matrix;
+            }
+        }
+
+        public void SetVector3(string name, Vector3 vector)
+        {
+            if (name == "lightColor")
+            {
+                lightColor = vector;
+                int location = GL.GetUniformLocation(Handle, "lightColor");
+                GL.Uniform3(location, vector);
+            }
+            else if (name == "lightPos")
+            {
+                lightPos = vector;
+                int location = GL.GetUniformLocation(Handle, "lightPos");
+                GL.Uniform3(location, vector);
+            }
+            else
+            {
+                Console.WriteLine($"Unknown uniform name: {name}");
             }
         }
 
