@@ -39,6 +39,7 @@ namespace OpenGL__Tutorial
         int VertexArrayObject;
         private double _time;
         Shader shader;
+        Shader lampShader;
         private Camera camera;
         Model.GeneralModel generalModel;
         Model.GeneralModel queenGeneralModel;
@@ -225,6 +226,8 @@ namespace OpenGL__Tutorial
             shader = new Shader("shader.vert", "shader.frag");
             shader.Use();
 
+            lampShader = new Shader("shader.vert", "lampShader.frag");
+
             camera = new Camera(new Vector3(-3.0f, 2.0f, 6.0f), Size.X / (float)Size.Y);
 ;
             CursorState = CursorState.Grabbed;
@@ -263,6 +266,8 @@ namespace OpenGL__Tutorial
             #endregion
 
             //GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
+            Lamp lamp1 = new Lamp(lampShader, new Vector3(1.0f, 3.0f, 1.0f), camera);
+            lamp1.Draw();
 
             SwapBuffers();
         }

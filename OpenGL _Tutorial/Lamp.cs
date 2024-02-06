@@ -1,4 +1,4 @@
-﻿using Assimp;
+﻿
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -13,12 +13,8 @@ namespace OpenGL__Tutorial
     {
         private Shader shader;
         Vector3 lampPos;
-        public Lamp(Shader shader, Vector3 lampPos)
-        {
-            this.shader = shader;
-            this.lampPos = lampPos;
-
-            float[] cubeVertices =
+        Camera camera;
+        float[] cubeVertices =
             {
                 // Position
                 -0.5f, -0.5f, -0.5f, // Front face
@@ -64,6 +60,16 @@ namespace OpenGL__Tutorial
                 -0.5f,  0.5f, -0.5f
             };
 
+        public Lamp(Shader shader, Vector3 lampPos, Camera camera)
+        {
+            this.shader = shader;
+            this.lampPos = lampPos;
+            this.camera = camera;
+        }
+
+        public void Draw()
+        {
+
             int vboLamp = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vboLamp);
             GL.BufferData(BufferTarget.ArrayBuffer, cubeVertices.Length * sizeof(float), cubeVertices, BufferUsageHint.StaticDraw);
@@ -74,6 +80,18 @@ namespace OpenGL__Tutorial
             var vertexLocation = shader.GetAttribLocation("aPos");
             GL.EnableVertexAttribArray(vertexLocation);
             GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+
+            GL.BindVertexArray(vaoLamp);
+            shader.Use();
+
+            Matrix4 lampMatrix = Matrix4.CreateScale(0.2f);
+            lampMatrix = lampMatrix * Matrix4.CreateTranslation(lampPos);
+
+            shader.SetMatrix4("model", lampMatrix);
+            shader.SetMatrix4("view", camera.GetViewMatrix());
+            shader.SetMatrix4("projection", camera.GetProjectionMatrix());
+
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
         }
     }
     

@@ -107,6 +107,24 @@ namespace OpenGL__Tutorial
             }
         }
 
+        public int GetAttribLocation(string attributeName)
+        {
+            if (Handle == 0)
+            {
+                Console.WriteLine("Shader program not compiled or linked.");
+                return -1;
+            }
+
+            int location = GL.GetAttribLocation(Handle, attributeName);
+
+            if (location == -1)
+            {
+                Console.WriteLine($"Attribute '{attributeName}' not found in the shader program.");
+            }
+
+            return location;
+        }
+
         private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
