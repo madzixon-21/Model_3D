@@ -27,6 +27,7 @@ namespace OpenGL__Tutorial
         float queenRotationY = 0.0f;
 
         Vector3 lightPos = new Vector3(1.0f, 3.0f, 1.0f);
+        Vector3 lightPos2 = new Vector3(-6.0f, 2.0f, -2.0f);
         public Game(int width, int height, string title) : base(GameWindowSettings.Default, new NativeWindowSettings() { ClientSize = (width, height), Title = title }) { }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -208,6 +209,7 @@ namespace OpenGL__Tutorial
 
             shader.SetVector3("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
             shader.SetVector3("lightPos", lightPos);
+            shader.SetVector3("lightPos2", lightPos2);
             shader.SetVector3("viewPos", camera.Position);
 
             generalModel.DrawModel(shader);
@@ -224,6 +226,8 @@ namespace OpenGL__Tutorial
 
             Lamp lamp1 = new Lamp(lampShader, lightPos, camera);
             lamp1.Draw();
+            Lamp lamp2 = new Lamp(lampShader, lightPos2, camera);
+            lamp2.Draw();
 
             SwapBuffers();
         }

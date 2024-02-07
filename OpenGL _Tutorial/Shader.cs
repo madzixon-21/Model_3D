@@ -22,6 +22,7 @@ namespace OpenGL__Tutorial
 
         Vector3 lightColor;
         Vector3 lightPos;
+        Vector3 lightPos2;
         Vector3 viewPos;
         public Shader(string vertexPath, string fragmentPath)
         {
@@ -124,6 +125,12 @@ namespace OpenGL__Tutorial
             {
                 lightPos = vector;
                 int location = GL.GetUniformLocation(Handle, "lightPos");
+                GL.Uniform3(location, vector);
+            }
+            else if (name == "lightPos2")
+            {
+                lightPos2 = vector;
+                int location = GL.GetUniformLocation(Handle, "lightPos2");
                 GL.Uniform3(location, vector);
             }
             else if (name == "viewPos")
