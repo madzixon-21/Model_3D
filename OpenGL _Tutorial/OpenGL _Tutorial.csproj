@@ -26,6 +26,12 @@
     <None Update="resources\SM_PieceBlackQueen.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="resources\SM_PieceBlackRook.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\SM_PieceWhiteKing.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="resources\ui.glb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

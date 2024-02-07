@@ -9,6 +9,7 @@ namespace OpenGL__Tutorial
 {
     public class Game : GameWindow
     {
+        #region Variables initialization
         int VertexArrayObject;
         private double _time;
         Shader shader;
@@ -16,18 +17,21 @@ namespace OpenGL__Tutorial
         private Camera camera;
         Model.GeneralModel generalModel;
         Model.GeneralModel queenGeneralModel;
+        Model.GeneralModel rookGeneralModel;
+        Model.GeneralModel kingGeneralModel;
 
         private bool firstMove = true;
         private Vector2 lastPos;
         private bool staticCameraMode = false;
         private bool keyPad1Pressed = false;
-        Matrix4 queenModel = Matrix4.CreateTranslation(-10.0f, 3.0f, -10.0f) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(90)) * Matrix4.CreateScale(0.1f);
 
+        Matrix4 queenModel = Matrix4.CreateTranslation(-10.0f, 3.0f, -10.0f) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(90)) * Matrix4.CreateScale(0.1f);
         Vector3 queenPosition = new Vector3(-10.0f, 3.0f, -10.0f);
         float queenRotationY = 0.0f;
 
         Vector3 lightPos = new Vector3(1.0f, 3.0f, 1.0f);
         Vector3 lightPos2 = new Vector3(-6.0f, 2.0f, -2.0f);
+        #endregion
         public Game(int width, int height, string title) : base(GameWindowSettings.Default, new NativeWindowSettings() { ClientSize = (width, height), Title = title }) { }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -177,6 +181,9 @@ namespace OpenGL__Tutorial
 
             generalModel = new Model.GeneralModel("resources/SM_ChessBoard.obj");
             queenGeneralModel = new Model.GeneralModel("resources/SM_PieceBlackQueen.obj");
+            rookGeneralModel = new Model.GeneralModel("resources/SM_PieceBlackRook.obj");
+
+            kingGeneralModel = new Model.GeneralModel("resources/SM_PieceWhiteKing.obj");
 
             shader = new Shader("shader.vert", "shader.frag");
             shader.Use();
@@ -222,6 +229,24 @@ namespace OpenGL__Tutorial
             shader.SetMatrix4("projection", camera.GetProjectionMatrix());
 
             queenGeneralModel.DrawModel(shader);
+            #endregion
+
+            #region Rook piece
+            Matrix4 rookModel = Matrix4.CreateTranslation(-40.0f, 4.0f, -25.0f) * Matrix4.CreateScale(0.1f);
+
+            shader.SetMatrix4("model", rookModel);
+            shader.SetMatrix4("view", camera.GetViewMatrix());
+            shader.SetMatrix4("projection", camera.GetProjectionMatrix());
+            rookGeneralModel.DrawModel(shader);
+            #endregion
+
+            #region King piece
+            Matrix4 kingModel = Matrix4.CreateTranslation(-30.0f, 4.0f, -20.0f) * Matrix4.CreateScale(0.1f);
+
+            shader.SetMatrix4("model", kingModel);
+            shader.SetMatrix4("view", camera.GetViewMatrix());
+            shader.SetMatrix4("projection", camera.GetProjectionMatrix());
+            kingGeneralModel.DrawModel(shader);
             #endregion
 
             Lamp lamp1 = new Lamp(lampShader, lightPos, camera);

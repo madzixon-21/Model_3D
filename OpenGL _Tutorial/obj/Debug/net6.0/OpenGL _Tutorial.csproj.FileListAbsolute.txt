@@ -41,3 +41,5 @@ C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.
 C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\resources\SM_ChessBoard.obj
 C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\resources\SM_PieceBlackQueen.obj
 C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\lampShader.frag
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\resources\SM_PieceBlackRook.obj
+C:\Users\magda\OneDrive\Pulpit\OpenGL _Tutorial\OpenGL _Tutorial\bin\Debug\net6.0\resources\SM_PieceWhiteKing.obj
