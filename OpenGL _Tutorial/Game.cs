@@ -24,6 +24,8 @@ namespace OpenGL__Tutorial
         private Vector2 lastPos;
         private bool followQueenMode = false;
         private bool staticCameraMode = false;
+        private bool firstPersonMode = false;
+        private bool keyPad3Pressed = false;
         private bool keyPad1Pressed = false;
         private bool keyPad2Pressed = false;
         private bool fogEnabled = false;
@@ -54,6 +56,10 @@ namespace OpenGL__Tutorial
             }
 
             #region Camera change logic
+            const float cameraSpeed = 1.5f;
+            const float queenSpeed = 3.0f;
+
+            // STATIC CAMERA
             if (input.IsKeyDown(Keys.KeyPad1) && !keyPad1Pressed)
             {
                 staticCameraMode = !staticCameraMode;
@@ -79,33 +85,48 @@ namespace OpenGL__Tutorial
                 keyPad1Pressed = false;
             }
 
-            //if (input.IsKeyDown(Keys.KeyPad2) && !keyPad2Pressed)
-            //{
-            //    followQueenMode = !followQueenMode;
-            //    keyPad2Pressed = true;
+            // MOVING QUEEN CAMERA
 
-            //}
-            //else if (input.IsKeyReleased(Keys.KeyPad2))
-            //{
-            //    keyPad2Pressed = false;
-            //}
+            if (input.IsKeyDown(Keys.KeyPad2) && !keyPad2Pressed)
+            {
+                followQueenMode = !followQueenMode;
+                keyPad2Pressed = true;
+            }
+            else if (input.IsKeyReleased(Keys.KeyPad2))
+            {
+                keyPad2Pressed = false;
+                camera.Position = new Vector3(-3.0f, 2.0f, 6.0f);
+            }
 
+            if (followQueenMode)
+            {
+                camera.Position = queenPosition * new Vector3(0.1f, 0.1f, 0.1f) + new Vector3(0.0f, 0.7f, 1.0f);
+            }
 
-            //if (followQueenMode)
-            //{
-            //    camera.Position = queenPosition + new Vector3(9.0f, -2.0f, 10.0f);
-            //}
-            //else
-            //{
-            //    camera.Position = new Vector3(-3.0f, 2.0f, 6.0f);
-            //}
+            // FIRST PERSON CAMERA
+
+            if (input.IsKeyDown(Keys.KeyPad3) && !keyPad3Pressed)
+            {
+                firstPersonMode = !firstPersonMode;
+                keyPad3Pressed = true;
+            }
+            else if (input.IsKeyReleased(Keys.KeyPad3))
+            {
+                keyPad3Pressed = false;
+                camera.Position = new Vector3(-3.0f, 2.0f, 6.0f);
+            }
+
+            if (firstPersonMode)
+            {
+                camera.Position = queenPosition * new Vector3(0.1f, 0.1f, 0.1f) + new Vector3(0.0f, 0.7f, -0.5f);
+            }
 
             #endregion
 
             if (!staticCameraMode)
             {
                 #region Camera movement logic
-                const float cameraSpeed = 1.5f;
+                
 
                 if (input.IsKeyDown(Keys.W))
                 {
@@ -155,8 +176,8 @@ namespace OpenGL__Tutorial
 
 
             #region Queen piece movement and rotation
-            const float queenSpeed = 3.0f;
-            const float queenRotationSpeed = 2.0f;
+            
+            const float queenRotationSpeed = 15.0f;
 
             if (input.IsKeyDown(Keys.Up))
             {
@@ -184,7 +205,7 @@ namespace OpenGL__Tutorial
             }
 
             
-            queenModel = Matrix4.CreateTranslation(queenPosition) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(queenRotationY)) * Matrix4.CreateScale(0.1f);
+            queenModel = Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(queenRotationY)) * Matrix4.CreateTranslation(queenPosition) *  Matrix4.CreateScale(0.1f);
 
             #endregion
 
