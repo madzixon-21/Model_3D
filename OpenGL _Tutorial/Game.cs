@@ -1,4 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -22,8 +22,11 @@ namespace OpenGL__Tutorial
 
         private bool firstMove = true;
         private Vector2 lastPos;
+        private bool followQueenMode = false;
         private bool staticCameraMode = false;
         private bool keyPad1Pressed = false;
+        private bool keyPad2Pressed = false;
+        private bool fogEnabled = false;
 
         Matrix4 queenModel = Matrix4.CreateTranslation(-10.0f, 3.0f, -10.0f) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(90)) * Matrix4.CreateScale(0.1f);
         Vector3 queenPosition = new Vector3(-10.0f, 3.0f, -10.0f);
@@ -58,9 +61,9 @@ namespace OpenGL__Tutorial
 
                 if (staticCameraMode)
                 {
-                    camera.Position = new Vector3(-3.0f, 7.0f, -3.0f);
+                    camera.Position = new Vector3(-3.0f, 8.0f, -3.0f);
                     camera.Pitch = -90.0f;
-                    camera.Yaw = 0.0f;
+                    camera.Yaw = -90.0f;
                     CursorState = CursorState.Normal;
                 }
                 else
@@ -75,6 +78,28 @@ namespace OpenGL__Tutorial
             {
                 keyPad1Pressed = false;
             }
+
+            //if (input.IsKeyDown(Keys.KeyPad2) && !keyPad2Pressed)
+            //{
+            //    followQueenMode = !followQueenMode;
+            //    keyPad2Pressed = true;
+
+            //}
+            //else if (input.IsKeyReleased(Keys.KeyPad2))
+            //{
+            //    keyPad2Pressed = false;
+            //}
+
+
+            //if (followQueenMode)
+            //{
+            //    camera.Position = queenPosition + new Vector3(9.0f, -2.0f, 10.0f);
+            //}
+            //else
+            //{
+            //    camera.Position = new Vector3(-3.0f, 2.0f, 6.0f);
+            //}
+
             #endregion
 
             if (!staticCameraMode)
@@ -160,9 +185,22 @@ namespace OpenGL__Tutorial
 
             
             queenModel = Matrix4.CreateTranslation(queenPosition) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(queenRotationY)) * Matrix4.CreateScale(0.1f);
-            
+
             #endregion
 
+
+            if (input.IsKeyDown(Keys.F) && !fogEnabled)
+            {
+                // Enable fog
+                EnableFog();
+                fogEnabled = true;
+            }
+            else if (input.IsKeyDown(Keys.F) && fogEnabled)
+            {
+                // Disable fog
+                DisableFog();
+                fogEnabled = false;
+            }
         }
 
         protected override void OnUnload()
@@ -263,6 +301,22 @@ namespace OpenGL__Tutorial
 
             GL.Viewport(0, 0, e.Width, e.Height);
             camera.AspectRatio = Size.X / (float)Size.Y;
+        }
+
+        private void EnableFog()
+        {
+            GL.Enable(EnableCap.Fog);
+            GL.Fog(FogParameter.FogMode, (int)FogMode.Linear); // Choose fog mode
+            GL.Fog(FogParameter.FogColor, new float[] { 0.5f, 0.5f, 0.5f, 1.0f });
+            GL.Fog(FogParameter.FogDensity, 0.5f);
+            GL.Fog(FogParameter.FogStart, 1.0f); // Set fog start distance
+            GL.Fog(FogParameter.FogEnd, -50.0f); // Set fog end distance
+        }
+
+        // Method to disable fog
+        private void DisableFog()
+        {
+            GL.Disable(EnableCap.Fog);
         }
     }
 }
